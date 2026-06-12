@@ -6,17 +6,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Entity
 @Table(name = "transportadora", schema = "SCVP")
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
 public class Transportadora {
 
     @Id
@@ -35,4 +27,55 @@ public class Transportadora {
 
     @Column(name = "ativo")
     private Boolean ativo = true;
+
+    public Transportadora() {}
+
+    public Transportadora(Long id, String nome, String cnpj, String contato, Boolean ativo) {
+        this.id = id;
+        this.nome = nome;
+        this.cnpj = cnpj;
+        this.contato = contato;
+        this.ativo = ativo;
+    }
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public String getCnpj() {
+		return cnpj;
+	}
+
+	public void setCnpj(String cnpj) {
+		this.cnpj = cnpj;
+	}
+
+	public String getContato() {
+		return contato;
+	}
+
+	public void setContato(String contato) {
+		this.contato = contato;
+	}
+
+	public Boolean getAtivo() {
+		return ativo;
+	}
+
+	public void setAtivo(Boolean ativo) {
+		this.ativo = ativo;
+	}    
+    
 }

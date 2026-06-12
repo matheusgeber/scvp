@@ -11,17 +11,9 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Entity
 @Table(name = "integracao_transportadora_envio", schema = "SCVP")
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
 public class IntegracaoTransportadoraEnvio {
 
     @Id
@@ -45,4 +37,65 @@ public class IntegracaoTransportadoraEnvio {
 
     @Column(name = "protocolo_envio", length = 120)
     private String protocoloEnvio;
+
+    public IntegracaoTransportadoraEnvio() {}
+
+    public IntegracaoTransportadoraEnvio(Long id, Reserva reserva, Transportadora transportadora,
+                                          LocalDateTime dataEnvio, String statusEnvio, String protocoloEnvio) {
+        this.id = id;
+        this.reserva = reserva;
+        this.transportadora = transportadora;
+        this.dataEnvio = dataEnvio;
+        this.statusEnvio = statusEnvio;
+        this.protocoloEnvio = protocoloEnvio;
+    }
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public Reserva getReserva() {
+		return reserva;
+	}
+
+	public void setReserva(Reserva reserva) {
+		this.reserva = reserva;
+	}
+
+	public Transportadora getTransportadora() {
+		return transportadora;
+	}
+
+	public void setTransportadora(Transportadora transportadora) {
+		this.transportadora = transportadora;
+	}
+
+	public LocalDateTime getDataEnvio() {
+		return dataEnvio;
+	}
+
+	public void setDataEnvio(LocalDateTime dataEnvio) {
+		this.dataEnvio = dataEnvio;
+	}
+
+	public String getStatusEnvio() {
+		return statusEnvio;
+	}
+
+	public void setStatusEnvio(String statusEnvio) {
+		this.statusEnvio = statusEnvio;
+	}
+
+	public String getProtocoloEnvio() {
+		return protocoloEnvio;
+	}
+
+	public void setProtocoloEnvio(String protocoloEnvio) {
+		this.protocoloEnvio = protocoloEnvio;
+	}
+	
 }

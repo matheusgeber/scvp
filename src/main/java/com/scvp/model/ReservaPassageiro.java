@@ -1,20 +1,20 @@
 package com.scvp.model;
 
-import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+
 @Entity
 @Table(name = "reserva_passageiro", schema = "SCVP")
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
 public class ReservaPassageiro {
 
     @Id
@@ -44,4 +44,84 @@ public class ReservaPassageiro {
 
     @Column(name = "percentual_desconto_aplicado", precision = 5, scale = 2)
     private BigDecimal percentualDescontoAplicado;
+
+    public ReservaPassageiro() {}
+
+    public ReservaPassageiro(Long id, Reserva reserva, String nomePassageiro, String cpfPassageiro,
+                              LocalDate dataNascimento, Boolean ehTitular, ReservaPassageiro responsavelAdulto,
+                              BigDecimal percentualDescontoAplicado) {
+        this.id = id;
+        this.reserva = reserva;
+        this.nomePassageiro = nomePassageiro;
+        this.cpfPassageiro = cpfPassageiro;
+        this.dataNascimento = dataNascimento;
+        this.ehTitular = ehTitular;
+        this.responsavelAdulto = responsavelAdulto;
+        this.percentualDescontoAplicado = percentualDescontoAplicado;
+    }
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public Reserva getReserva() {
+		return reserva;
+	}
+
+	public void setReserva(Reserva reserva) {
+		this.reserva = reserva;
+	}
+
+	public String getNomePassageiro() {
+		return nomePassageiro;
+	}
+
+	public void setNomePassageiro(String nomePassageiro) {
+		this.nomePassageiro = nomePassageiro;
+	}
+
+	public String getCpfPassageiro() {
+		return cpfPassageiro;
+	}
+
+	public void setCpfPassageiro(String cpfPassageiro) {
+		this.cpfPassageiro = cpfPassageiro;
+	}
+
+	public LocalDate getDataNascimento() {
+		return dataNascimento;
+	}
+
+	public void setDataNascimento(LocalDate dataNascimento) {
+		this.dataNascimento = dataNascimento;
+	}
+
+	public Boolean getEhTitular() {
+		return ehTitular;
+	}
+
+	public void setEhTitular(Boolean ehTitular) {
+		this.ehTitular = ehTitular;
+	}
+
+	public ReservaPassageiro getResponsavelAdulto() {
+		return responsavelAdulto;
+	}
+
+	public void setResponsavelAdulto(ReservaPassageiro responsavelAdulto) {
+		this.responsavelAdulto = responsavelAdulto;
+	}
+
+	public BigDecimal getPercentualDescontoAplicado() {
+		return percentualDescontoAplicado;
+	}
+
+	public void setPercentualDescontoAplicado(BigDecimal percentualDescontoAplicado) {
+		this.percentualDescontoAplicado = percentualDescontoAplicado;
+	}
+    
 }

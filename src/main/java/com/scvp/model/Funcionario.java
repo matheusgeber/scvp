@@ -6,17 +6,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Entity
 @Table(name = "funcionario", schema = "SCVP")
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
 public class Funcionario {
 
     @Id
@@ -27,7 +19,7 @@ public class Funcionario {
     @Column(name = "nome", nullable = false, length = 150)
     private String nome;
 
-    @Column(name = "cpf", nullable = false, length = 11)
+    @Column(name = "cpf", nullable = false, length = 11, unique = true)
     private String cpf;
 
     @Column(name = "cargo", length = 80)
@@ -38,4 +30,65 @@ public class Funcionario {
 
     @Column(name = "ativo")
     private Boolean ativo = true;
+
+    public Funcionario() {}
+
+    public Funcionario(Long id, String nome, String cpf, String cargo,
+                        Boolean ehGerenteVirtual, Boolean ativo) {
+        this.id = id;
+        this.nome = nome;
+        this.cpf = cpf;
+        this.cargo = cargo;
+        this.ehGerenteVirtual = ehGerenteVirtual;
+        this.ativo = ativo;
+    }
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public String getCpf() {
+		return cpf;
+	}
+
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
+	}
+
+	public String getCargo() {
+		return cargo;
+	}
+
+	public void setCargo(String cargo) {
+		this.cargo = cargo;
+	}
+
+	public Boolean getEhGerenteVirtual() {
+		return ehGerenteVirtual;
+	}
+
+	public void setEhGerenteVirtual(Boolean ehGerenteVirtual) {
+		this.ehGerenteVirtual = ehGerenteVirtual;
+	}
+
+	public Boolean getAtivo() {
+		return ativo;
+	}
+
+	public void setAtivo(Boolean ativo) {
+		this.ativo = ativo;
+	}
+   
 }
