@@ -15,7 +15,7 @@ import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "reserva", schema = "SCVP")
+@Table(name = "reserva")
 public class Reserva {
 
     @Id

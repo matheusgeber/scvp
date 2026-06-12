@@ -3,7 +3,7 @@ package com.scvp.model;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "usuario", schema = "SCVP")
+@Table(name = "usuario")
 public class Usuario {
 
     @Id

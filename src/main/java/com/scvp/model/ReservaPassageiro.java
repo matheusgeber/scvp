@@ -14,7 +14,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "reserva_passageiro", schema = "SCVP")
+@Table(name = "reserva_passageiro")
 public class ReservaPassageiro {
 
     @Id
