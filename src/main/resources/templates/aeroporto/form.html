@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout :: layout('Novo Aeroporto', ~{::content})}">
+<th:block th:fragment="content">
+
+    <div class="page-header">
+        <div>
+            <h1>Novo Aeroporto</h1>
+            <p>Cadastre um aeroporto</p>
+        </div>
+    </div>
+
+    <div class="card" style="max-width: 500px;">
+        <div class="card-header">Dados do Aeroporto</div>
+        <div class="card-body">
+            <form th:action="@{/aeroportos/salvar}" method="post">
+                <div class="form-grid cols-1">
+                    <div class="form-group">
+                        <label>Cidade *</label>
+                        <select name="idCidade" required>
+                            <option value="">Selecione...</option>
+                            <option th:each="c : ${cidades}"
+                                    th:value="${c.id}"
+                                    th:text="${c.nome} + ' - ' + ${c.uf}">
+                            </option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Nome do Aeroporto *</label>
+                        <input type="text" name="nome" required
+                               placeholder="Ex: Aeroporto Internacional do Galeão"/>
+                    </div>
+                    <div class="form-group">
+                        <label>Código IATA (3 letras)</label>
+                        <input type="text" name="codigoIata" maxlength="3"
+                               placeholder="Ex: GIG" style="text-transform:uppercase"/>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Salvar Aeroporto</button>
+                    <a href="/aeroportos" class="btn btn-secondary">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</th:block>
+</html>

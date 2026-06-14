@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout :: layout('Cidades', ~{::content})}">
+<th:block th:fragment="content">
+
+    <div class="page-header">
+        <div>
+            <h1>Cidades</h1>
+            <p>Localidades cadastradas no sistema</p>
+        </div>
+        <a href="/cidades/nova" class="btn btn-primary">+ Nova Cidade</a>
+    </div>
+
+    <div th:if="${sucesso}" class="alert alert-success">
+        ✓ <span th:text="${sucesso}"></span>
+    </div>
+
+    <div class="card">
+        <div th:if="${cidades.empty}" class="empty-state">
+            <p>Nenhuma cidade cadastrada ainda.</p>
+            <a href="/cidades/nova" class="btn btn-primary">Cadastrar primeira cidade</a>
+        </div>
+
+        <table th:unless="${cidades.empty}">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Nome</th>
+                    <th>UF</th>
+                    <th>Código</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="c : ${cidades}">
+                    <td th:text="${c.id}"></td>
+                    <td th:text="${c.nome}"></td>
+                    <td th:text="${c.uf}"></td>
+                    <td th:text="${c.codigo3letras ?: '-'}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</th:block>
+</html>

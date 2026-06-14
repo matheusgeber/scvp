@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout :: layout('Aeroportos', ~{::content})}">
+<th:block th:fragment="content">
+
+    <div class="page-header">
+        <div>
+            <h1>Aeroportos</h1>
+            <p>Aeroportos cadastrados no sistema</p>
+        </div>
+        <a href="/aeroportos/novo" class="btn btn-primary">+ Novo Aeroporto</a>
+    </div>
+
+    <div th:if="${sucesso}" class="alert alert-success">
+        ✓ <span th:text="${sucesso}"></span>
+    </div>
+
+    <div class="card">
+        <div th:if="${aeroportos.empty}" class="empty-state">
+            <p>Nenhum aeroporto cadastrado ainda.</p>
+            <a href="/aeroportos/novo" class="btn btn-primary">Cadastrar primeiro aeroporto</a>
+        </div>
+
+        <table th:unless="${aeroportos.empty}">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Nome</th>
+                    <th>Código IATA</th>
+                    <th>Cidade</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="a : ${aeroportos}">
+                    <td th:text="${a.id}"></td>
+                    <td th:text="${a.nome}"></td>
+                    <td th:text="${a.codigoIata ?: '-'}"></td>
+                    <td th:text="${a.cidade?.nome ?: '-'}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</th:block>
+</html>

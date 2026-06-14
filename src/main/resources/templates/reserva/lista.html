@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout :: layout('Reservas', ~{::content})}">
+<th:block th:fragment="content">
+
+    <div class="page-header">
+        <div>
+            <h1>Reservas</h1>
+            <p>Controle de reservas e passagens</p>
+        </div>
+        <a href="/reservas/nova" class="btn btn-success">+ Nova Reserva</a>
+    </div>
+
+    <div th:if="${sucesso}" class="alert alert-success">
+        ✓ <span th:text="${sucesso}"></span>
+    </div>
+
+    <div class="card">
+        <div th:if="${reservas.empty}" class="empty-state">
+            <p>Nenhuma reserva cadastrada ainda.</p>
+            <a href="/reservas/nova" class="btn btn-success">Criar primeira reserva</a>
+        </div>
+
+        <table th:unless="${reservas.empty}">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Cliente</th>
+                    <th>Viagem</th>
+                    <th>Canal</th>
+                    <th>Valor Total</th>
+                    <th>Status</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="r : ${reservas}">
+                    <td th:text="${r.id}"></td>
+                    <td th:text="${r.cliente.nome}"></td>
+                    <td th:text="'#' + ${r.viagem.id} + ' — ' + ${r.viagem.origemCidade?.nome} + ' → ' + ${r.viagem.destinoCidade?.nome}"></td>
+                    <td th:text="${r.canalVenda ?: '-'}"></td>
+                    <td th:text="${r.valorTotal != null ? 'R$ ' + r.valorTotal : '-'}"></td>
+                    <td>
+                        <span class="badge"
+                            th:classappend="${r.statusReserva == 'CONFIRMADA'} ? 'badge-success' :
+                                           (${r.statusReserva == 'PENDENTE'}   ? 'badge-warning' :
+                                           (${r.statusReserva == 'CANCELADA'}  ? 'badge-danger'  : 'badge-gray'))"
+                            th:text="${r.statusReserva}">
+                        </span>
+                    </td>
+                    <td>
+                        <div style="display:flex; gap:6px;">
+                            <a th:if="${r.statusReserva == 'PENDENTE'}"
+                               th:href="@{/pagamentos/novo/{id}(id=${r.id})}"
+                               class="btn btn-success btn-sm">Pagar</a>
+
+                            <form th:if="${r.statusReserva != 'CANCELADA'}"
+                                  th:action="@{/reservas/cancelar/{id}(id=${r.id})}"
+                                  method="post"
+                                  onsubmit="return confirm('Cancelar esta reserva?')">
+                                <button type="submit" class="btn btn-danger btn-sm">Cancelar</button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</th:block>
+</html>

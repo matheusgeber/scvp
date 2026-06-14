@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout :: layout('Início', ~{::content})}">
+<th:block th:fragment="content">
+
+    <div class="page-header">
+        <div>
+            <h1>Dashboard</h1>
+            <p>Bem-vindo ao Sistema de Controle e Vendas de Passagens</p>
+        </div>
+    </div>
+
+    <div class="stats-grid">
+        <div class="stat-card blue">
+            <div class="stat-label">Clientes</div>
+            <div class="stat-value" th:text="${totalClientes}">0</div>
+        </div>
+        <div class="stat-card orange">
+            <div class="stat-label">Viagens</div>
+            <div class="stat-value" th:text="${totalViagens}">0</div>
+        </div>
+        <div class="stat-card green">
+            <div class="stat-label">Reservas</div>
+            <div class="stat-value" th:text="${totalReservas}">0</div>
+        </div>
+        <div class="stat-card red">
+            <div class="stat-label">Tickets Emitidos</div>
+            <div class="stat-value" th:text="${totalTickets}">0</div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">Acesso Rápido</div>
+        <div class="card-body">
+            <div style="display:flex; gap:12px; flex-wrap:wrap;">
+                <a href="/clientes/novo" class="btn btn-primary">+ Novo Cliente</a>
+                <a href="/viagens/nova" class="btn btn-warning">+ Nova Viagem</a>
+                <a href="/reservas/nova" class="btn btn-success">+ Nova Reserva</a>
+                <a href="/clientes" class="btn btn-secondary">Ver Clientes</a>
+                <a href="/viagens" class="btn btn-secondary">Ver Viagens</a>
+                <a href="/reservas" class="btn btn-secondary">Ver Reservas</a>
+            </div>
+        </div>
+    </div>
+
+</th:block>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout :: layout('Transportadoras', ~{::content})}">
+<th:block th:fragment="content">
+
+    <div class="page-header">
+        <div>
+            <h1>Transportadoras</h1>
+            <p>Empresas proprietárias dos modais</p>
+        </div>
+        <a href="/transportadoras/nova" class="btn btn-primary">+ Nova Transportadora</a>
+    </div>
+
+    <div th:if="${sucesso}" class="alert alert-success">
+        ✓ <span th:text="${sucesso}"></span>
+    </div>
+
+    <div class="card">
+        <div th:if="${transportadoras.empty}" class="empty-state">
+            <p>Nenhuma transportadora cadastrada ainda.</p>
+            <a href="/transportadoras/nova" class="btn btn-primary">Cadastrar primeira transportadora</a>
+        </div>
+
+        <table th:unless="${transportadoras.empty}">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Nome</th>
+                    <th>CNPJ</th>
+                    <th>Contato</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="t : ${transportadoras}">
+                    <td th:text="${t.id}"></td>
+                    <td th:text="${t.nome}"></td>
+                    <td th:text="${t.cnpj}"></td>
+                    <td th:text="${t.contato ?: '-'}"></td>
+                    <td>
+                        <span class="badge"
+                              th:classappend="${t.ativo} ? 'badge-success' : 'badge-danger'"
+                              th:text="${t.ativo} ? 'Ativa' : 'Inativa'">
+                        </span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</th:block>
+</html>

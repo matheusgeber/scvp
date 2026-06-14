@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout :: layout('Clientes', ~{::content})}">
+<th:block th:fragment="content">
+
+    <div class="page-header">
+        <div>
+            <h1>Clientes</h1>
+            <p>Gerenciamento de clientes cadastrados</p>
+        </div>
+        <a href="/clientes/novo" class="btn btn-primary">+ Novo Cliente</a>
+    </div>
+
+    <div th:if="${sucesso}" class="alert alert-success">
+        ✓ <span th:text="${sucesso}"></span>
+    </div>
+
+    <div class="card">
+        <div th:if="${clientes.empty}" class="empty-state">
+            <p>Nenhum cliente cadastrado ainda.</p>
+            <a href="/clientes/novo" class="btn btn-primary">Cadastrar primeiro cliente</a>
+        </div>
+
+        <table th:unless="${clientes.empty}">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Nome</th>
+                    <th>CPF</th>
+                    <th>E-mail</th>
+                    <th>Telefone</th>
+                    <th>Nascimento</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="c : ${clientes}">
+                    <td th:text="${c.id}"></td>
+                    <td th:text="${c.nome}"></td>
+                    <td th:text="${c.cpf}"></td>
+                    <td th:text="${c.email}"></td>
+                    <td th:text="${c.telefone ?: '-'}"></td>
+                    <td th:text="${c.dataNascimento}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</th:block>
+</html>

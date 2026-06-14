@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout :: layout('Modais', ~{::content})}">
+<th:block th:fragment="content">
+
+    <div class="page-header">
+        <div>
+            <h1>Modais</h1>
+            <p>Veículos de transporte cadastrados</p>
+        </div>
+        <a href="/modais/novo" class="btn btn-primary">+ Novo Modal</a>
+    </div>
+
+    <div th:if="${sucesso}" class="alert alert-success">
+        ✓ <span th:text="${sucesso}"></span>
+    </div>
+
+    <div class="card">
+        <div th:if="${modais.empty}" class="empty-state">
+            <p>Nenhum modal cadastrado ainda.</p>
+            <a href="/modais/novo" class="btn btn-primary">Cadastrar primeiro modal</a>
+        </div>
+
+        <table th:unless="${modais.empty}">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Tipo</th>
+                    <th>Identificação</th>
+                    <th>Transportadora</th>
+                    <th>Capacidade</th>
+                    <th>Estado</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="m : ${modais}">
+                    <td th:text="${m.id}"></td>
+                    <td th:text="${m.tipoModal}"></td>
+                    <td th:text="${m.identificacao ?: '-'}"></td>
+                    <td th:text="${m.transportadora?.nome ?: '-'}"></td>
+                    <td th:text="${m.capacidadeTotal ?: '-'}"></td>
+                    <td>
+                        <span class="badge"
+                              th:classappend="${m.estadoOperacional == 'OPERACIONAL'} ? 'badge-success' : 'badge-danger'"
+                              th:text="${m.estadoOperacional}">
+                        </span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</th:block>
+</html>

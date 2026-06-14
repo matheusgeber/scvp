@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout :: layout('Erro', ~{::content})}">
+<th:block th:fragment="content">
+
+    <div style="text-align:center; padding: 64px 24px;">
+        <div style="font-size:64px; margin-bottom:12px;">⚠️</div>
+        <h1 style="color:#dc2626; margin-bottom:12px;">Ocorreu um erro</h1>
+        <p style="color:#64748b; font-size:16px; margin-bottom:28px;" th:text="${erro}">Erro desconhecido.</p>
+        <a href="/" class="btn btn-primary">Voltar ao Início</a>
+    </div>
+
+</th:block>
+</html>

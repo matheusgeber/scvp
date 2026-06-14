@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout :: layout('Nova Reserva', ~{::content})}">
+<th:block th:fragment="content">
+
+    <div class="page-header">
+        <div>
+            <h1>Nova Reserva</h1>
+            <p>Realize uma reserva presencial</p>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">Dados da Reserva</div>
+        <div class="card-body">
+            <form th:action="@{/reservas/salvar}" method="post">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Cliente *</label>
+                        <select name="idCliente" required>
+                            <option value="">Selecione o cliente...</option>
+                            <option th:each="c : ${clientes}"
+                                    th:value="${c.id}"
+                                    th:text="${c.nome} + ' — CPF: ' + ${c.cpf}">
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Viagem *</label>
+                        <select name="idViagem" required>
+                            <option value="">Selecione a viagem...</option>
+                            <option th:each="v : ${viagens}"
+                                    th:value="${v.id}"
+                                    th:text="'#' + ${v.id} + ' — ' + ${v.origemCidade?.nome} + ' → ' + ${v.destinoCidade?.nome} + ' (' + ${v.dataHoraSaida} + ')'">
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Quantidade de Passageiros *</label>
+                        <input type="number" name="quantidadePassageiros"
+                               min="1" value="1" required/>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Valor Bruto (R$) *</label>
+                        <input type="number" name="valorBruto"
+                               step="0.01" min="0" required
+                               placeholder="Ex: 500.00"/>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-success">Criar Reserva</button>
+                    <a href="/reservas" class="btn btn-secondary">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</th:block>
+</html>

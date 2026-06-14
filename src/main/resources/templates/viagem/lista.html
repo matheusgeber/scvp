@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout :: layout('Viagens', ~{::content})}">
+<th:block th:fragment="content">
+
+    <div class="page-header">
+        <div>
+            <h1>Viagens</h1>
+            <p>Viagens cadastradas no sistema</p>
+        </div>
+        <a href="/viagens/nova" class="btn btn-warning">+ Nova Viagem</a>
+    </div>
+
+    <div th:if="${sucesso}" class="alert alert-success">
+        ✓ <span th:text="${sucesso}"></span>
+    </div>
+
+    <div class="card">
+        <div th:if="${viagens.empty}" class="empty-state">
+            <p>Nenhuma viagem cadastrada ainda.</p>
+            <a href="/viagens/nova" class="btn btn-warning">Cadastrar primeira viagem</a>
+        </div>
+
+        <table th:unless="${viagens.empty}">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Origem</th>
+                    <th>Destino</th>
+                    <th>Modal</th>
+                    <th>Capacidade</th>
+                    <th>Saída</th>
+                    <th>Chegada</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="v : ${viagens}">
+                    <td th:text="${v.id}"></td>
+                    <td th:text="${v.origemCidade?.nome ?: '-'}"></td>
+                    <td th:text="${v.destinoCidade?.nome ?: '-'}"></td>
+                    <td th:text="${v.modal?.tipoModal ?: '-'}"></td>
+                    <td th:text="${v.modal?.capacidadeTotal ?: '-'}"></td>
+                    <td th:text="${v.dataHoraSaida}"></td>
+                    <td th:text="${v.dataHoraChegada ?: '-'}"></td>
+                    <td>
+                        <span class="badge"
+                            th:classappend="${v.statusViagem == 'PROGRAMADA'} ? 'badge-info' :
+                                           (${v.statusViagem == 'CONCLUIDA'} ? 'badge-success' : 'badge-gray')"
+                            th:text="${v.statusViagem}">
+                        </span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</th:block>
+</html>

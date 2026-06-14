@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout :: layout('Processar Pagamento', ~{::content})}">
+<th:block th:fragment="content">
+
+    <div class="page-header">
+        <div>
+            <h1>Processar Pagamento</h1>
+            <p>Reserva confirma apenas após pagamento aprovado</p>
+        </div>
+    </div>
+
+    <div class="card" style="max-width:560px;">
+        <div class="card-header">Detalhes da Reserva</div>
+        <div class="card-body">
+
+            <div style="background:#f8fafc; border-radius:8px; padding:16px; margin-bottom:24px;">
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; font-size:14px;">
+                    <div>
+                        <span style="color:#64748b; font-size:12px;">RESERVA</span>
+                        <div style="font-weight:700;" th:text="'#' + ${reserva.id}"></div>
+                    </div>
+                    <div>
+                        <span style="color:#64748b; font-size:12px;">CLIENTE</span>
+                        <div style="font-weight:700;" th:text="${reserva.cliente.nome}"></div>
+                    </div>
+                    <div>
+                        <span style="color:#64748b; font-size:12px;">VIAGEM</span>
+                        <div style="font-weight:700;"
+                             th:text="${reserva.viagem.origemCidade?.nome} + ' → ' + ${reserva.viagem.destinoCidade?.nome}">
+                        </div>
+                    </div>
+                    <div>
+                        <span style="color:#64748b; font-size:12px;">VALOR TOTAL</span>
+                        <div style="font-weight:700; color:#16a34a;"
+                             th:text="'R$ ' + ${reserva.valorTotal}">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Formulário -->
+            <form th:action="@{/pagamentos/processar}" method="post">
+                <input type="hidden" name="idReserva" th:value="${reserva.id}"/>
+
+                <div class="form-grid cols-1">
+                    <div class="form-group">
+                        <label>Forma de Pagamento *</label>
+                        <select name="formaPagamento" required>
+                            <option value="">Selecione...</option>
+                            <option value="CREDITO">Cartão de Crédito</option>
+                            <option value="DEBITO">Cartão de Débito</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Status da Transação *</label>
+                        <select name="aprovado" required>
+                            <option value="true">✓ Aprovado</option>
+                            <option value="false">✗ Negado</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-success">Confirmar Pagamento</button>
+                    <a href="/reservas" class="btn btn-secondary">Voltar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</th:block>
+</html>
