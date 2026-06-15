@@ -4,6 +4,7 @@ import com.scvp.model.*;
 import com.scvp.repository.*;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -31,7 +32,7 @@ public class ViagemService {
 
         if (!"OPERACIONAL".equals(modal.getEstadoOperacional())) {
             throw new IllegalStateException(
-                "Modal '" + modal.getIdentificacao() + "' está em manutenção e não pode ser utilizado (RN001)."
+                "Modal '" + modal.getIdentificacao() + "' está em manutenção e não pode ser utilizado."
             );
         }
 
@@ -51,15 +52,11 @@ public class ViagemService {
         Aeroporto destinoAeroporto = null;
         if (idDestinoAeroporto != null && idDestinoAeroporto > 0) {
             destinoAeroporto = aeroportoRepository.findById(idDestinoAeroporto).orElseThrow(() -> new IllegalArgumentException("Aeroporto de destino não encontrado."));
-        }
-
-        LocalDateTime saida = LocalDateTime.parse(dataHoraSaida);
-        LocalDateTime chegada = dataHoraChegada != null && !dataHoraChegada.isBlank()
-                ? LocalDateTime.parse(dataHoraChegada)
-                : null;
-
-        if (chegada != null && !chegada.isAfter(saida)) {
-            throw new IllegalArgumentException("Data/hora de chegada deve ser posterior à saída.");
+        }        
+        LocalDate dataSaida = LocalDate.parse(dataHoraSaida);
+        
+        if (dataSaida.isBefore(LocalDate.now())) {
+        	throw new IllegalArgumentException("Data de saída não pode ser anterior à data atual.");
         }
 
         Viagem viagem = new Viagem();
@@ -67,9 +64,9 @@ public class ViagemService {
         viagem.setOrigemCidade(origemCidade);
         viagem.setDestinoCidade(destinoCidade);
         viagem.setOrigemAeroporto(origemAeroporto);
-        viagem.setDestinoAeroporto(destinoAeroporto);
-        viagem.setDataHoraSaida(saida);
-        viagem.setDataHoraChegada(chegada);
+        viagem.setDestinoAeroporto(destinoAeroporto);        
+        viagem.setDataHoraSaida(dataSaida.atStartOfDay());
+        viagem.setDataHoraChegada(null);
         viagem.setStatusViagem("PROGRAMADA");
 
         return viagemRepository.save(viagem);

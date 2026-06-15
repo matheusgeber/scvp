@@ -1,11 +1,17 @@
 package com.scvp.controller;
 
-import com.scvp.model.Viagem;
-import com.scvp.service.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import com.scvp.service.AeroportoService;
+import com.scvp.service.CidadeService;
+import com.scvp.service.ModalService;
+import com.scvp.service.ViagemService;
 
 @Controller
 @RequestMapping("/viagens")
@@ -27,32 +33,37 @@ public class ViagemController {
     @GetMapping
     public String listar(Model model) {
         model.addAttribute("viagens", viagemService.listarTodos());
-        return "viagem/lista";
+        return "viagem/listaViagem";
     }
 
     @GetMapping("/nova")
     public String form(Model model) {
-        model.addAttribute("viagem", new Viagem());
         model.addAttribute("modais", modalService.listarTodos());
         model.addAttribute("cidades", cidadeService.listarTodos());
-        model.addAttribute("aeroportos", aeroportoService.listarTodos());
-        return "viagem/form";
+        if (!model.containsAttribute("idModal")) {
+            model.addAttribute("idModal", "");
+            model.addAttribute("idOrigemCidade", "");
+            model.addAttribute("idDestinoCidade", "");
+            model.addAttribute("dataHoraSaida", "");
+        }
+        return "viagem/formViagem";
     }
 
     @PostMapping("/salvar")
-    public String salvar(@RequestParam Long idModal,
-                          @RequestParam Long idOrigemCidade,
-                          @RequestParam Long idDestinoCidade,
-                          @RequestParam Long idOrigemAeroporto,
-                          @RequestParam Long idDestinoAeroporto,
-                          @RequestParam String dataHoraSaida,
-                          @RequestParam String dataHoraChegada,
+    public String salvar(@RequestParam Long idModal, @RequestParam Long idOrigemCidade, @RequestParam Long idDestinoCidade, @RequestParam String dataHoraSaida,
                           RedirectAttributes ra) {
+        try {
+            viagemService.cadastrarComIds(idModal, idOrigemCidade, idDestinoCidade, null, null, dataHoraSaida, null);
+            ra.addFlashAttribute("sucesso", "Viagem cadastrada com sucesso!");
+            return "redirect:/viagens";
 
-        viagemService.cadastrarComIds(idModal, idOrigemCidade, idDestinoCidade,
-                idOrigemAeroporto, idDestinoAeroporto, dataHoraSaida, dataHoraChegada);
-
-        ra.addFlashAttribute("sucesso", "Viagem cadastrada com sucesso!");
-        return "redirect:/viagens";
+        } catch (IllegalArgumentException | IllegalStateException e) {
+            ra.addFlashAttribute("erro", e.getMessage());
+            ra.addFlashAttribute("idModal", idModal);
+            ra.addFlashAttribute("idOrigemCidade", idOrigemCidade);
+            ra.addFlashAttribute("idDestinoCidade", idDestinoCidade);
+            ra.addFlashAttribute("dataHoraSaida", dataHoraSaida);
+            return "redirect:/viagens/nova";
+        }
     }
 }

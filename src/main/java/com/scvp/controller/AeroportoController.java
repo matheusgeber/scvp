@@ -23,13 +23,13 @@ public class AeroportoController {
     @GetMapping
     public String listar(Model model) {
         model.addAttribute("aeroportos", aeroportoService.listarTodos());
-        return "aeroporto/lista";
+        return "aeroporto/listaAeroporto";
     }
 
     @GetMapping("/novo")
     public String form(Model model) {
         model.addAttribute("cidades", cidadeService.listarTodos());
-        return "aeroporto/form";
+        return "aeroporto/formAeroporto";
     }
 
     @PostMapping("/salvar")
