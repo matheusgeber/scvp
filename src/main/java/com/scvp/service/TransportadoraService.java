@@ -16,6 +16,9 @@ public class TransportadoraService {
     }
 
     public Transportadora cadastrar(Transportadora transportadora) {
+    	if (transportadoraRepository.existsByCnpj(transportadora.getCnpj())) {
+            throw new IllegalArgumentException("CNPJ já cadastrado.");
+        }
         return transportadoraRepository.save(transportadora);
     }
 

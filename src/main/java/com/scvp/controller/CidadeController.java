@@ -20,12 +20,12 @@ public class CidadeController {
     @GetMapping
     public String listar(Model model) {
         model.addAttribute("cidades", cidadeService.listarTodos());
-        return "cidade/lista";
+        return "cidade/listaCidade";
     }
 
     @GetMapping("/nova")
     public String form() {
-        return "cidade/form";
+        return "cidade/formCidade";
     }
 
     @PostMapping("/salvar")

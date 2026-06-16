@@ -27,21 +27,18 @@ public class ReservaController {
     @GetMapping
     public String listar(Model model) {
         model.addAttribute("reservas", reservaService.listarTodos());
-        return "reserva/lista";
+        return "reserva/listaReserva";
     }
 
     @GetMapping("/nova")
     public String form(Model model) {
         model.addAttribute("clientes", clienteService.listarTodos());
         model.addAttribute("viagens", viagemService.listarTodos());
-        return "reserva/form";
+        return "reserva/formReserva";
     }
 
     @PostMapping("/salvar")
-    public String salvar(@RequestParam Long idCliente,
-                          @RequestParam Long idViagem,
-                          @RequestParam int quantidadePassageiros,
-                          @RequestParam BigDecimal valorBruto,
+    public String salvar(@RequestParam Long idCliente, @RequestParam Long idViagem, @RequestParam int quantidadePassageiros, @RequestParam BigDecimal valorBruto,
                           RedirectAttributes ra) {
 
         var cliente = clienteService.buscarPorId(idCliente);

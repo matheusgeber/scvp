@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout :: layout('Nova Viagem', ~{::content})}">
+<th:block th:fragment="content">
+
+    <div class="page-header">
+        <div>
+            <h1>Nova Viagem</h1>
+            <p>Cadastre uma nova viagem no sistema</p>
+        </div>
+    </div>
+
+    <div class="alert alert-error" th:if="${erro != null}">
+        ⚠ <span th:text="${erro}"></span>
+    </div>
+
+    <div class="card">
+        <div class="card-header">Dados da Viagem</div>
+        <div class="card-body">
+            <form th:action="@{/viagens/salvar}" method="post">
+                <div class="form-grid">
+
+                    <div class="form-group full">
+                        <label>Modal (veículo) *</label>
+                        <select name="idModal" id="selectModal" required
+                                th:classappend="${erro != null and #strings.contains(erro,'Modal')} ? 'input-error' : ''">
+                            <option value="" data-tipo="">Selecione um modal...</option>
+                            <option th:each="m : ${modais}"
+                                    th:value="${m.id}"
+                                    th:attr="data-tipo=${m.tipoModal}"
+                                    th:selected="${idModal != null and idModal == m.id}"
+                                    th:text="${m.tipoModal} + ' — ' + ${m.identificacao}
+                                             + ' (cap: ' + ${m.capacidadeTotal} + ')'">
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Origem *</label>
+                        <select name="idOrigemCidade" required
+                                th:classappend="${erro != null and #strings.contains(erro,'origem')} ? 'input-error' : ''">
+                            <option value="">Selecione...</option>
+                            <option th:each="c : ${cidades}"
+                                    th:value="${c.id}"
+                                    th:selected="${idOrigemCidade != null and idOrigemCidade == c.id}"
+                                    th:text="${c.nome} + ' - ' + ${c.uf}">
+                            </option>
+                        </select>
+                        <span class="field-error"
+                              th:if="${erro != null and #strings.contains(erro,'origem')}"
+                              th:text="${erro}">
+                        </span>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Destino *</label>
+                        <select name="idDestinoCidade" required
+                                th:classappend="${erro != null and #strings.contains(erro,'destino')} ? 'input-error' : ''">
+                            <option value="">Selecione...</option>
+                            <option th:each="c : ${cidades}"
+                                    th:value="${c.id}"
+                                    th:selected="${idDestinoCidade != null and idDestinoCidade == c.id}"
+                                    th:text="${c.nome} + ' - ' + ${c.uf}">
+                            </option>
+                        </select>
+                        <span class="field-error"
+                              th:if="${erro != null and #strings.contains(erro,'destino')}"
+                              th:text="${erro}">
+                        </span>
+                    </div>
+
+                    <div class="form-group" style="max-width: 300px;">
+					    <label>Data de Saída *</label>
+					    <input type="date" name="dataHoraSaida" required
+					           th:value="${dataHoraSaida}"
+					           th:attr="min=${#temporals.format(#temporals.createNow(), 'yyyy-MM-dd')}"
+					           th:classappend="${erro != null and #strings.contains(erro,'saída')} ? 'input-error' : ''"/>
+					    <span class="field-error"
+					          th:if="${erro != null and #strings.contains(erro,'saída')}"
+					          th:text="${erro}">
+					    </span>
+					</div>
+
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-warning">Salvar Viagem</button>
+                    <a href="/viagens" class="btn btn-secondary">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</th:block>
+</html>

@@ -22,7 +22,7 @@ public class PagamentoController {
     @GetMapping("/novo/{idReserva}")
     public String form(@PathVariable Long idReserva, Model model) {
         model.addAttribute("reserva", reservaService.buscarPorId(idReserva));
-        return "pagamento/form";
+        return "pagamento/formPagamento";
     }
 
     @PostMapping("/processar")

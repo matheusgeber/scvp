@@ -14,8 +14,30 @@
             color: #1e293b;
             min-height: 100vh;
         }
+        
+        .input-error {
+		    border-color: #dc2626 !important;
+		    background: #fff5f5;
+		}
+		
+		.input-error:focus {
+		    box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1) !important;
+		}
+		
+		.field-error {
+		    color: #dc2626;
+		    font-size: 12px;
+		    font-weight: 500;
+		    margin-top: 2px;
+		    display: flex;
+		    align-items: center;
+		    gap: 4px;
+		}
+		
+		.field-error::before {
+		    content: "⚠";
+		}
 
-        /* NAVBAR */
         nav {
             background: #1e3a5f;
             padding: 0 32px;
@@ -63,14 +85,12 @@
             color: white;
         }
 
-        /* MAIN */
         main {
             max-width: 1100px;
             margin: 32px auto;
             padding: 0 24px;
         }
 
-        /* PAGE HEADER */
         .page-header {
             display: flex;
             align-items: center;
@@ -90,7 +110,6 @@
             margin-top: 2px;
         }
 
-        /* CARD */
         .card {
             background: white;
             border-radius: 12px;
@@ -111,7 +130,6 @@
             padding: 24px;
         }
 
-        /* ALERTS */
         .alert {
             padding: 12px 16px;
             border-radius: 8px;
@@ -134,7 +152,6 @@
             border: 1px solid #fecaca;
         }
 
-        /* TABLE */
         table {
             width: 100%;
             border-collapse: collapse;
@@ -167,7 +184,6 @@
             border-bottom: none;
         }
 
-        /* BADGES */
         .badge {
             display: inline-block;
             padding: 3px 10px;
@@ -182,7 +198,6 @@
         .badge-info    { background: #dbeafe; color: #1d4ed8; }
         .badge-gray    { background: #f1f5f9; color: #475569; }
 
-        /* BUTTONS */
         .btn {
             display: inline-flex;
             align-items: center;
@@ -208,7 +223,6 @@
 
         .btn-sm { padding: 5px 12px; font-size: 13px; }
 
-        /* FORMS */
         .form-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -257,7 +271,6 @@
             border-top: 1px solid #e2e8f0;
         }
 
-        /* STAT CARDS (dashboard) */
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -296,7 +309,6 @@
         .stat-card.red   { border-color: #dc2626; }
         .stat-card.red .stat-value { color: #dc2626; }
 
-        /* EMPTY STATE */
         .empty-state {
             text-align: center;
             padding: 48px 24px;
@@ -310,7 +322,6 @@
 
         .empty-state p { font-size: 15px; margin-bottom: 16px; }
 
-        /* FOOTER */
         footer {
             text-align: center;
             padding: 24px;

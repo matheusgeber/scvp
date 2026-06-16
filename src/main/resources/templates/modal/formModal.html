@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout :: layout('Novo Modal', ~{::content})}">
+<th:block th:fragment="content">
+
+    <div class="page-header">
+        <div>
+            <h1>Novo Modal</h1>
+            <p>Cadastre um veículo de transporte</p>
+        </div>
+    </div>
+
+    <div class="card" style="max-width: 600px;">
+        <div class="card-header">Dados do Modal</div>
+        <div class="card-body">
+            <form th:action="@{/modais/salvar}" method="post">
+                <div class="form-grid cols-1">
+
+				    <div class="form-group">
+				        <label>Transportadora *</label>
+				        <select name="idTransportadora" required
+				                th:classappend="${erro != null and #strings.contains(erro,'Transportadora')} ? 'input-error' : ''">
+				            <option value="">Selecione...</option>
+				            <option th:each="t : ${transportadoras}"
+				                    th:value="${t.id}"
+				                    th:selected="${idTransportadora != null and idTransportadora == t.id}"
+				                    th:text="${t.nome}">
+				            </option>
+				        </select>
+				        <span class="field-error"
+				              th:if="${erro != null and #strings.contains(erro,'Transportadora')}"
+				              th:text="${erro}">
+				        </span>
+				    </div>
+				
+				    <div class="form-group">
+				        <label>Tipo do Modal *</label>
+				        <select name="tipoModal" required>
+				            <option value="">Selecione...</option>
+				            <option value="aviao"
+				                    th:selected="${tipoModal == 'aviao'}">✈ Avião</option>
+				            <option value="trem"
+				                    th:selected="${tipoModal == 'trem'}">🚂 Trem</option>
+				            <option value="onibus"
+				                    th:selected="${tipoModal == 'onibus'}">🚌 Ônibus</option>
+				            <option value="navio"
+				                    th:selected="${tipoModal == 'navio'}">🚢 Navio</option>
+				        </select>
+				    </div>
+				
+				    <div class="form-group">
+				        <label>Identificação (ex: PR-ABC)</label>
+				        <input type="text" name="identificacao"
+				               placeholder="Ex: PR-GUA"
+				               th:value="${identificacao}"/>
+				    </div>
+				
+				    <div class="form-group">
+				        <label>Capacidade Total *</label>
+				        <input type="number" name="capacidadeTotal" min="1" required
+				               placeholder="0"
+				               th:value="${capacidadeTotal}"
+				               th:classappend="${erro != null and #strings.contains(erro,'Capacidade')} ? 'input-error' : ''"/>
+				        <span class="field-error"
+				              th:if="${erro != null and #strings.contains(erro,'Capacidade')}"
+				              th:text="${erro}">
+				        </span>
+				    </div>
+				
+				    <div class="alert alert-error"
+				         th:if="${erro != null
+				                 and not #strings.contains(erro,'Transportadora')
+				                 and not #strings.contains(erro,'Capacidade')}">
+				        ⚠ <span th:text="${erro}"></span>
+				    </div>
+				
+				</div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Salvar Modal</button>
+                    <a href="/modais" class="btn btn-secondary">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</th:block>
+</html>
