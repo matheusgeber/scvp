@@ -16,33 +16,33 @@ import jakarta.persistence.Table;
 @Table(name = "ticket")
 public class Ticket {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_ticket")
-    private Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id_ticket")
+	private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_reserva", nullable = false)
-    private Reserva reserva;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_reserva", nullable = false)
+	private Reserva reserva;
 
-    @Column(name = "codigo_ticket", length = 50, unique = true)
-    private String codigoTicket;
+	@Column(name = "codigo_ticket", length = 50, unique = true)
+	private String codigoTicket;
 
-    @Column(name = "data_emissao")
-    private LocalDateTime dataEmissao;
+	@Column(name = "data_emissao")
+	private LocalDateTime dataEmissao;
 
-    @Column(name = "status_ticket", length = 20)
-    private String statusTicket;
+	@Column(name = "status_ticket", length = 20)
+	private String statusTicket;
 
-    public Ticket() {}
+	public Ticket() {}
 
-    public Ticket(Long id, Reserva reserva, String codigoTicket, LocalDateTime dataEmissao, String statusTicket) {
-        this.id = id;
-        this.reserva = reserva;
-        this.codigoTicket = codigoTicket;
-        this.dataEmissao = dataEmissao;
-        this.statusTicket = statusTicket;
-    }
+	public Ticket(Long id, Reserva reserva, String codigoTicket, LocalDateTime dataEmissao, String statusTicket) {
+		this.id = id;
+		this.reserva = reserva;
+		this.codigoTicket = codigoTicket;
+		this.dataEmissao = dataEmissao;
+		this.statusTicket = statusTicket;
+	}
 
 	public Long getId() {
 		return id;
@@ -83,5 +83,5 @@ public class Ticket {
 	public void setStatusTicket(String statusTicket) {
 		this.statusTicket = statusTicket;
 	}
-    
+
 }

@@ -319,6 +319,26 @@
             margin-top: 48px;
             border-top: 1px solid #e2e8f0;
         }
+
+        .back-container {
+            background: #f1f5f9;
+            padding: 10px 32px;
+        }
+
+        .nav-back {
+            color: #000;
+            font-weight: 600;
+            text-decoration: none;
+            font-size: 13px;
+            display: inline-block;
+            padding: 6px 10px;
+            border-radius: 6px;
+        }
+
+        .nav-back:hover {
+            background: rgba(0,0,0,0.08);
+        }
+
     </style>
 </head>
 <body>
@@ -337,6 +357,10 @@
     </ul>
 </nav>
 
+<div class="back-container" id="backBtn">
+    <a class="nav-back" th:href="@{/}">← Voltar</a>
+</div>
+
 <main>
     <th:block th:replace="${content}" />
 </main>
@@ -344,6 +368,14 @@
 <footer>
     SCVP — Sistema de Controle e Vendas de Passagens · Vai&amp;Volta Viagens · CEFET/RJ 2026
 </footer>
+
+<script>
+    const path = window.location.pathname;
+
+    if (path === "/" || path === "/inicio") {
+        document.getElementById("backBtn").style.display = "none";
+    }
+</script>
 
 </body>
 </html>

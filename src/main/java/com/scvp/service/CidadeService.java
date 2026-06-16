@@ -16,6 +16,17 @@ public class CidadeService {
     }
 
     public Cidade cadastrar(Cidade cidade) {
+
+        cidade.setCodigo3letras(
+                cidade.getCodigo3letras().toUpperCase()
+        );
+
+        if (!cidade.getCodigo3letras().matches("^[A-Z]{3}$")) {
+            throw new IllegalArgumentException(
+                    "O código da cidade deve conter exatamente 3 letras."
+            );
+        }
+
         return cidadeRepository.save(cidade);
     }
 

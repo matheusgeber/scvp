@@ -29,6 +29,12 @@ public class ViagemService {
 
         Modal modal = modalRepository.findById(idModal).orElseThrow(() -> new IllegalArgumentException("Modal não encontrado."));
 
+        if (aeroportoRepository.count() < 2) {
+            throw new IllegalArgumentException(
+                    "É necessário cadastrar pelo menos dois aeroportos para criar uma viagem."
+            );
+        }
+
         if (!"OPERACIONAL".equals(modal.getEstadoOperacional())) {
             throw new IllegalStateException(
                 "Modal '" + modal.getIdentificacao() + "' está em manutenção e não pode ser utilizado (RN001)."

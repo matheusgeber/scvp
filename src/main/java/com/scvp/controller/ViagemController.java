@@ -54,5 +54,6 @@ public class ViagemController {
 
         ra.addFlashAttribute("sucesso", "Viagem cadastrada com sucesso!");
         return "redirect:/viagens";
+
     }
 }
