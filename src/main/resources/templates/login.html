@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Login | SCVP</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #1e3a5f 0%, #0f1f33 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .login-card {
+            background: white;
+            border-radius: 16px;
+            padding: 40px;
+            width: 380px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 28px;
+        }
+
+        .login-header .logo {
+            font-size: 28px;
+            font-weight: 800;
+            color: #1e3a5f;
+            letter-spacing: 1px;
+        }
+
+        .login-header .logo span {
+            color: #2563eb;
+        }
+
+        .login-header p {
+            color: #94a3b8;
+            font-size: 13px;
+            margin-top: 4px;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: #475569;
+            margin-bottom: 6px;
+        }
+
+        input {
+            width: 100%;
+            padding: 11px 14px;
+            border: 1.5px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37,99,235,0.1);
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 8px;
+            transition: opacity 0.2s;
+        }
+
+        button:hover { opacity: 0.9; }
+
+        .erro {
+            background: #fee2e2;
+            color: #991b1b;
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 13px;
+            margin-bottom: 18px;
+            text-align: center;
+        }
+
+        .login-footer {
+            text-align: center;
+            margin-top: 24px;
+            font-size: 12px;
+            color: #94a3b8;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="login-card">
+        <div class="login-header">
+            <div class="logo">✈ VAI<span>&VOLTA</span></div>
+            <p>Sistema de Controle e Vendas de Passagens</p>
+        </div>
+
+        <div class="erro" th:if="${erro}" th:text="${erro}"></div>
+
+        <form th:action="@{/login}" method="post">
+            <div class="form-group">
+                <label>E-mail</label>
+                <input type="email" name="email" required autofocus placeholder="seu@email.com"/>
+            </div>
+            <div class="form-group">
+                <label>Senha</label>
+                <input type="password" name="senha" required placeholder="••••••••"/>
+            </div>
+            <button type="submit">Entrar</button>
+        </form>
+
+        <div class="login-footer">
+            SCVP · Vai&amp;Volta Viagens · CEFET/RJ
+        </div>
+    </div>
+
+</body>
+</html>

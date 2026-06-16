@@ -358,14 +358,20 @@
     <a class="nav-brand" href="/">✈ VAI<span>&VOLTA</span></a>
     <ul class="nav-links">
         <li><a href="/">Início</a></li>
-    <li><a href="/clientes">Clientes</a></li>
-    <li><a href="/cidades">Cidades</a></li>
-    <li><a href="/aeroportos">Aeroportos</a></li>
-    <li><a href="/transportadoras">Transportadoras</a></li>
-    <li><a href="/modais">Modais</a></li>
-    <li><a href="/viagens">Viagens</a></li>
-    <li><a href="/reservas">Reservas</a></li>
+        <li><a href="/clientes">Clientes</a></li>
+        <li><a href="/cidades">Cidades</a></li>
+        <li><a href="/aeroportos">Aeroportos</a></li>
+        <li><a href="/transportadoras">Transportadoras</a></li>
+        <li><a href="/modais">Modais</a></li>
+        <li><a href="/viagens">Viagens</a></li>
+        <li><a href="/reservas">Reservas</a></li>
     </ul>
+    <div style="display:flex; align-items:center; gap:12px;">
+        <span style="color:#cbd5e1; font-size:13px;"
+              th:text="${session.nomeUsuario}">
+        </span>
+        <a href="/logout" class="btn btn-secondary btn-sm">Sair</a>
+    </div>
 </nav>
 
 <div class="back-container" id="backBtn">
