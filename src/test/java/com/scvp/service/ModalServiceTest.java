@@ -38,8 +38,7 @@ class ModalServiceTest {
     @Test
     void deveCadastrarModal() {
 
-        when(modalRepository.save(any(Modal.class)))
-                .thenReturn(modal);
+        when(modalRepository.save(any(Modal.class))).thenReturn(modal);
 
         Modal resultado = modalService.cadastrar(modal);
 
@@ -53,8 +52,7 @@ class ModalServiceTest {
     @Test
     void deveListarTodos() {
 
-        when(modalRepository.findAll())
-                .thenReturn(List.of(modal, new Modal()));
+        when(modalRepository.findAll()).thenReturn(List.of(modal, new Modal()));
 
         List<Modal> modais = modalService.listarTodos();
 
@@ -66,8 +64,7 @@ class ModalServiceTest {
     @Test
     void deveBuscarModalPorId() {
 
-        when(modalRepository.findById(1L))
-                .thenReturn(Optional.of(modal));
+        when(modalRepository.findById(1L)).thenReturn(Optional.of(modal));
 
         Modal resultado = modalService.buscarPorId(1L);
 
@@ -80,14 +77,9 @@ class ModalServiceTest {
     @Test
     void deveLancarExcecaoQuandoModalNaoExiste() {
 
-        when(modalRepository.findById(99L))
-                .thenReturn(Optional.empty());
+        when(modalRepository.findById(99L)).thenReturn(Optional.empty());
 
-        IllegalArgumentException exception =
-                assertThrows(
-                        IllegalArgumentException.class,
-                        () -> modalService.buscarPorId(99L)
-                );
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> modalService.buscarPorId(99L));
 
         assertEquals("Modal não encontrado.", exception.getMessage());
 
